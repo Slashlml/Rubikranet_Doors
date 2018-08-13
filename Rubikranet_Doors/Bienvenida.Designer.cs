@@ -38,7 +38,8 @@
             // 
             // pictureBox1
             // 
-            this.pictureBox1.BackColor = System.Drawing.SystemColors.Control;
+            this.pictureBox1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.pictureBox1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(0, 0);
@@ -55,8 +56,10 @@
             // 
             // metroProgressSpinner1
             // 
-            this.metroProgressSpinner1.BackColor = System.Drawing.SystemColors.Control;
-            this.metroProgressSpinner1.Location = new System.Drawing.Point(147, 184);
+            this.metroProgressSpinner1.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.metroProgressSpinner1.Backwards = true;
+            this.metroProgressSpinner1.CustomBackground = true;
+            this.metroProgressSpinner1.Location = new System.Drawing.Point(148, 201);
             this.metroProgressSpinner1.Maximum = 10000;
             this.metroProgressSpinner1.Name = "metroProgressSpinner1";
             this.metroProgressSpinner1.Size = new System.Drawing.Size(62, 61);
@@ -67,6 +70,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.ClientSize = new System.Drawing.Size(352, 274);
             this.Controls.Add(this.metroProgressSpinner1);
             this.Controls.Add(this.pictureBox1);

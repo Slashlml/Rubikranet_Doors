@@ -113,7 +113,7 @@
             this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
             this.pictureBox1.Location = new System.Drawing.Point(3, 110);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(43, 44);
+            this.pictureBox1.Size = new System.Drawing.Size(40, 40);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
@@ -124,7 +124,7 @@
             this.imgcorrecto.Image = ((System.Drawing.Image)(resources.GetObject("imgcorrecto.Image")));
             this.imgcorrecto.Location = new System.Drawing.Point(3, 172);
             this.imgcorrecto.Name = "imgcorrecto";
-            this.imgcorrecto.Size = new System.Drawing.Size(43, 41);
+            this.imgcorrecto.Size = new System.Drawing.Size(40, 40);
             this.imgcorrecto.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgcorrecto.TabIndex = 5;
             this.imgcorrecto.TabStop = false;
@@ -136,7 +136,7 @@
             this.imguser.Image = ((System.Drawing.Image)(resources.GetObject("imguser.Image")));
             this.imguser.Location = new System.Drawing.Point(3, 223);
             this.imguser.Name = "imguser";
-            this.imguser.Size = new System.Drawing.Size(43, 41);
+            this.imguser.Size = new System.Drawing.Size(40, 40);
             this.imguser.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imguser.TabIndex = 6;
             this.imguser.TabStop = false;
@@ -148,7 +148,7 @@
             this.imgdenegado.Image = ((System.Drawing.Image)(resources.GetObject("imgdenegado.Image")));
             this.imgdenegado.Location = new System.Drawing.Point(3, 172);
             this.imgdenegado.Name = "imgdenegado";
-            this.imgdenegado.Size = new System.Drawing.Size(43, 41);
+            this.imgdenegado.Size = new System.Drawing.Size(40, 40);
             this.imgdenegado.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.imgdenegado.TabIndex = 7;
             this.imgdenegado.TabStop = false;

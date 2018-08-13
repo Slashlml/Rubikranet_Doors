@@ -30,7 +30,7 @@ namespace Rubikranet_Doors
             }
             catch (Exception e)
             {
-                MessageBox.Show("Error de base de datos.");
+                MessageBox.Show("Error de base de datos en Consulta(). "+ e.ToString());
             }
 
         }

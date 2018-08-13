@@ -137,6 +137,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="MetroFramework.txt" />
+    <Content Include="scripts\ProcedureMemCli.sql" />
+    <Content Include="scripts\Quey_Areas_Cupo.sql" />
+    <Content Include="scripts\Vista clientes.sql" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

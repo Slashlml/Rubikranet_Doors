@@ -28,17 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(puerto));
             this.select_puertos = new MetroSet_UI.Controls.MetroSetComboBox();
             this.materialLabel1 = new MaterialSkin.Controls.MaterialLabel();
-            this.pictureBox2 = new System.Windows.Forms.PictureBox();
-            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            this.btnContinuar = new System.Windows.Forms.PictureBox();
+            this.btnRefresca = new System.Windows.Forms.PictureBox();
             this.select_areas = new MetroSet_UI.Controls.MetroSetComboBox();
             this.materialLabel2 = new MaterialSkin.Controls.MaterialLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnContinuar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresca)).BeginInit();
             this.SuspendLayout();
             // 
             // select_puertos
@@ -82,33 +80,29 @@
             this.materialLabel1.TabIndex = 3;
             this.materialLabel1.Text = "Selecciona un puerto:";
             // 
-            // pictureBox2
+            // btnContinuar
             // 
-            this.pictureBox2.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
-            this.pictureBox2.Location = new System.Drawing.Point(211, 207);
-            this.pictureBox2.Name = "pictureBox2";
-            this.pictureBox2.Size = new System.Drawing.Size(58, 55);
-            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox2.TabIndex = 5;
-            this.pictureBox2.TabStop = false;
-            this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
+            this.btnContinuar.BackColor = System.Drawing.Color.Transparent;
+            this.btnContinuar.Image = ((System.Drawing.Image)(resources.GetObject("btnContinuar.Image")));
+            this.btnContinuar.Location = new System.Drawing.Point(196, 207);
+            this.btnContinuar.Name = "btnContinuar";
+            this.btnContinuar.Size = new System.Drawing.Size(40, 40);
+            this.btnContinuar.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnContinuar.TabIndex = 5;
+            this.btnContinuar.TabStop = false;
+            this.btnContinuar.Click += new System.EventHandler(this.btnContinuar_Click);
             // 
-            // serialPort1
+            // btnRefresca
             // 
-            this.serialPort1.DataReceived += new System.IO.Ports.SerialDataReceivedEventHandler(this.serialPort1_DataReceived);
-            // 
-            // pictureBox3
-            // 
-            this.pictureBox3.BackColor = System.Drawing.Color.Transparent;
-            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
-            this.pictureBox3.Location = new System.Drawing.Point(69, 207);
-            this.pictureBox3.Name = "pictureBox3";
-            this.pictureBox3.Size = new System.Drawing.Size(58, 55);
-            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox3.TabIndex = 6;
-            this.pictureBox3.TabStop = false;
-            this.pictureBox3.Click += new System.EventHandler(this.pictureBox3_Click);
+            this.btnRefresca.BackColor = System.Drawing.Color.Transparent;
+            this.btnRefresca.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresca.Image")));
+            this.btnRefresca.Location = new System.Drawing.Point(105, 207);
+            this.btnRefresca.Name = "btnRefresca";
+            this.btnRefresca.Size = new System.Drawing.Size(40, 40);
+            this.btnRefresca.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.btnRefresca.TabIndex = 6;
+            this.btnRefresca.TabStop = false;
+            this.btnRefresca.Click += new System.EventHandler(this.btnRefresca_Click);
             // 
             // select_areas
             // 
@@ -149,27 +143,28 @@
             this.materialLabel2.Name = "materialLabel2";
             this.materialLabel2.Size = new System.Drawing.Size(135, 19);
             this.materialLabel2.TabIndex = 7;
-            this.materialLabel2.Text = "¿Que área es esta?";
+            this.materialLabel2.Text = "¿Qué área es esta?";
             // 
             // puerto
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 274);
+            this.ClientSize = new System.Drawing.Size(352, 260);
             this.ControlBox = false;
             this.Controls.Add(this.select_areas);
             this.Controls.Add(this.materialLabel2);
-            this.Controls.Add(this.pictureBox3);
-            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.btnRefresca);
+            this.Controls.Add(this.btnContinuar);
             this.Controls.Add(this.select_puertos);
             this.Controls.Add(this.materialLabel1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(352, 274);
-            this.MinimumSize = new System.Drawing.Size(352, 274);
             this.Name = "puerto";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Configuración";
             this.Load += new System.EventHandler(this.puerto_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnContinuar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.btnRefresca)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -178,9 +173,8 @@
         #endregion
         private MetroSet_UI.Controls.MetroSetComboBox select_puertos;
         private MaterialSkin.Controls.MaterialLabel materialLabel1;
-        private System.Windows.Forms.PictureBox pictureBox2;
-        private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.PictureBox pictureBox3;
+        private System.Windows.Forms.PictureBox btnContinuar;
+        private System.Windows.Forms.PictureBox btnRefresca;
         private MetroSet_UI.Controls.MetroSetComboBox select_areas;
         private MaterialSkin.Controls.MaterialLabel materialLabel2;
     }

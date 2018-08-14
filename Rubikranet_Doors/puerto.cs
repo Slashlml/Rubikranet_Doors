@@ -20,7 +20,13 @@ namespace Rubikranet_Doors
             InitializeComponent();
         }
 
-        void conexion_puertos(){
+        private void puerto_Load(object sender, EventArgs e)
+        {
+            conexion_puertos();
+            areas();
+        }
+
+        private void conexion_puertos(){
 
             string[] ports = SerialPort.GetPortNames();
             foreach (string port in ports)
@@ -29,57 +35,36 @@ namespace Rubikranet_Doors
             }
         }
 
-        void areas() {
+        private void areas() {
 
-            conexion.Consulta(String.Format("select id_area,nombre from areas"));
-            conexion.CargaCombos("Selecciona un área", select_areas, "id_area", "nombre");
+            conexion.Consulta(String.Format("select id_area,nombre from areas where estatusEliminado <> 1"));
+            conexion.CargaCombos("Selecciona un área...", select_areas, "id_area", "nombre");
             conexion.con.Close();
-
+            select_areas.SelectedIndex = 0;
         }
 
-        private void pictureBox2_Click(object sender, EventArgs e)
+        private void btnContinuar_Click(object sender, EventArgs e)
         {
-            if (select_puertos.Text == "") {
-
-                MessageBox.Show("Selecciona un puerto");
-
-            } else {
-
-                if (select_areas.Text == ""){
-
-                    MessageBox.Show("Selecciona un área");
-                }
-                else {
-
-                    Acceso access = new Acceso();
-                    access.port = select_puertos.Text;
-                    string newarea = (select_areas.SelectedItem as conexion.AttrCB).Value.ToString();
-                    access.area = newarea;
-                    //access.area =select_areas.SelectedValue);
-                    this.Hide();
-                    access.ShowDialog();
-                }
-                
+            if (select_puertos.Text == "" || select_areas.SelectedIndex == 0)
+            {
+                Mensajes.Caja("Information", "Aviso", "Es necesario seleccionar el puerto y el área para poder continuar.");
             }
-
+            else
+            {
+                Acceso access = new Acceso();
+                access.port = select_puertos.Text;
+                string newarea = (select_areas.SelectedItem as conexion.AttrCB).Value.ToString();
+                access.area = newarea;
+                this.Hide();
+                access.ShowDialog();
+                this.Close();
+            }
         }
 
-        private void pictureBox3_Click(object sender, EventArgs e)
+        private void btnRefresca_Click(object sender, EventArgs e)
         {
             select_puertos.Items.Clear();
             conexion_puertos();
         }
-
-        private void puerto_Load(object sender, EventArgs e)
-        {
-            conexion_puertos();
-            areas();
-        }
-
-        private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
-        {
-
-        }
-       
     }
 }

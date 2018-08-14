@@ -14,7 +14,7 @@ namespace Rubikranet_Doors
         public static SqlConnection con; //variable de conexión
         public static SqlDataReader result; // variable pública que contendrá los valores devueltos de una consulta del método Consulta().
 
-        private static String cadenaConexion = "Data Source=DESKTOP-MUTGHBB\\SQLSERVER;Initial Catalog=membresias_club;Integrated Security=True";
+        private static String cadenaConexion = "Data Source=VAIO-PC;Initial Catalog=membresias_club;Integrated Security=True";
 
 
         public static void Consulta(string comando){

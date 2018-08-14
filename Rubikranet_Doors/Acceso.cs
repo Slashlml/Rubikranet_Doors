@@ -15,104 +15,145 @@ namespace Rubikranet_Doors
 {
     public partial class Acceso : MaterialSkin.Controls.MaterialForm
     {
+        int time = 0;
+        string codigo;
+        public string port;
+        public string area;
+        string id_cliente = "", id_miembro = "", nombreCliente = "";
+        bool tipoEdad = false, edad_miembro = false;
+        int cupo_maximo = 0, cupo_actual = 0;
+        int cupoActual;
+
         public Acceso()
         {
             InitializeComponent();
         }
 
-        
-        int time = 0;
-        string codigo;
-        public string port;
-        public string area;
-        int cupoActual;
-
         private void Acceso_Load(object sender, EventArgs e)
         {
             serialCod.PortName = port;
             serialCod.Open();
+            EdadAccesibilidadArea();
             timer1.Start();
-            txtRFID.Select();
-            txtRFID.Focus();
         }
         
+        private void EdadAccesibilidadArea()
+        {
+            conexion.Consulta(
+                string.Format("select codigo_edad_accesibilidad from areas where id_area = '{0}'", area)
+                );
+
+            if (conexion.result.Read())
+            {
+                tipoEdad = Convert.ToBoolean(conexion.result["codigo_edad_accesibilidad"]);
+            }
+
+            conexion.con.Close();
+        }
 
         private void txtRFID_TextChanged(object sender, EventArgs e)
         {
-            if (txtRFID.Text != ""){
+            if (txtRFID.Text != "")
+            {
+                string verificaTipoCliente = "";
 
-                conexion.Consulta(String.Format("EXEC AREAS_PROCEDURE '{0}','{1}'", txtRFID.Text,area));
+                conexion.Consulta(String.Format("EXEC verificaCliente '{0}','{1}'", txtRFID.Text, area));
+                if (conexion.result.HasRows)
+                {
+                    verificaTipoCliente = "cliente";
 
-                if (conexion.result.Read() == true){
-
-                    if (Convert.ToInt32(conexion.result["cupo_actual"]) < Convert.ToInt32(conexion.result["cupo_maximo"])) {
-
-                        lblHola.Visible = true;
-                        lblHola.Text = "¡Acceso Correcto!";
-                        imgcorrecto.Visible = true;
-                        imguser.Visible = true;
-                        lblacceso.Visible = true;
-                        lblacceso.Text = "Hola " + conexion.result["nombre"].ToString() + " Bienvenid@";
-                        txtRFID.Enabled = false;
-                        cupoActual = Convert.ToInt32(conexion.result["cupo_actual"]);
-                        cupoActual = cupoActual + 1;
-                        conexion.Ejecutar(String.Format("EXEC ADD_CUPO '{0}','{1}' ", area, cupoActual));
-                        time = 6;
-                        timer2.Start();
-                       
-                    }
-                    else
+                    if (conexion.result.Read())
                     {
-                        imgcorrecto.Visible = false;
-                        imguser.Visible = false;
-                        lblacceso.Visible = false;
-                        lblHola.Visible = true;
-                        imgdenegado.Visible = true;
-                        lblHola.Text = "¡Limite de personas al máximo!";
-                        time = 6;
-                        timer2.Start();
-
+                        id_cliente = conexion.result["id_cliente"].ToString();
+                        nombreCliente = conexion.result["nombre"].ToString();
+                        cupo_maximo = Convert.ToInt32(conexion.result["cupo_maximo"].ToString());
+                        cupo_actual = Convert.ToInt32(conexion.result["cupo_actual"].ToString());
                     }
 
-                }else{
-
-                    txtRFID.Enabled = false;
-                    imgcorrecto.Visible = false;
-                    imguser.Visible = false;
-                    lblacceso.Visible = false;
-                    lblHola.Visible = true;
-                    imgdenegado.Visible = true;
-                    time = 6;
-                    timer2.Start();
-                    lblHola.Text = "¡Error Acceso Incorrecto!";
+                    conexion.con.Close();
                 }
-            }else{
 
-                lblHola.Visible = false;
-                lblacceso.Visible = false;
-                imgcorrecto.Visible = false;
-                imgdenegado.Visible = false;
-                imguser.Visible = false;
+                conexion.Consulta(String.Format("EXEC verificaMiembro '{0}','{1}'", txtRFID.Text, area));
+                if (conexion.result.HasRows)
+                {
+                    verificaTipoCliente = "miembro";
+
+                    if (conexion.result.Read())
+                    {
+                        id_cliente = conexion.result["id_cliente"].ToString();
+                        nombreCliente = conexion.result["nombre"].ToString();
+                        id_miembro = conexion.result["id_membresia_familiar"].ToString();
+                        edad_miembro = Convert.ToBoolean(conexion.result["tipo_edad"]);
+                        cupo_maximo = Convert.ToInt32(conexion.result["cupo_maximo"].ToString());
+                        cupo_actual = Convert.ToInt32(conexion.result["cupo_actual"].ToString());
+                    }
+
+                    conexion.con.Close();
+                }
+
+                switch (verificaTipoCliente)
+                {
+                    case "cliente":
+                        if (cupo_actual < cupo_maximo)
+                        {
+                            Mensajes.Caja("Information", "Acceso", "Bienvenido " + nombreCliente);
+                            conexion.Ejecutar(
+                                string.Format("exec actualiza_Areas_VisitadasAndCupo '{0}','{1}','{2}','{3}'"));
+                            time = 4;
+                            timer2.Start();
+                        }
+                        else
+                        {
+                            Mensajes.Caja("Warning", "Aviso", "Esta área se encuentra llena.");
+                            time = 4;
+                            timer2.Start();
+                        }
+                        break;
+
+                    case "miembro":
+                        if (cupo_actual < cupo_maximo)
+                        {
+                            if (!tipoEdad && !edad_miembro || tipoEdad && !edad_miembro)
+                            {
+                                Mensajes.Caja("Information","Acceso","Bienvenido "+nombreCliente);
+                                time = 4;
+                                timer2.Start();
+                            }
+                            else if(!tipoEdad && edad_miembro)
+                            {
+                                Mensajes.Caja("Error","Accesibilidad","No puedes acceder a esta área "+ nombreCliente + ", solo adultos.");
+                                time = 4;
+                                timer2.Start();
+                            }
+                        }
+                        else
+                        {
+                            Mensajes.Caja("Warning", "Aviso", "Esta área se encuentra llena.");
+                        }
+                        break;
+
+                    default:
+                        Mensajes.Caja("Error", "Accesibilidad", "No tienes permiso para acceder a esta área.");
+                        time = 4;
+                        timer2.Start();
+                        break;
+                }
             }
-
-
         }
 
-        
-        void conteo() { 
-
-            if (time == 0){
-
+        void conteo()
+        {
+            if (time == 0)
+            {
+                time = -1;
                 timer2.Stop();
-                txtRFID.Enabled = true;
                 txtRFID.Text = "";
                 codigo = "";
             }
-            else {
-
+            else
+            {
                 time = time - 1;
             }
-
         }
 
         private void timer2_Tick(object sender, EventArgs e)
@@ -127,7 +168,10 @@ namespace Rubikranet_Doors
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            txtRFID.Text = codigo;
+            if (codigo != "")
+            {
+                txtRFID.Text = codigo;
+            }            
         }
     }
 }

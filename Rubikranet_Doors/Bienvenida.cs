@@ -24,6 +24,7 @@ namespace Rubikranet_Doors
 
         private void timer1_Tick(object sender, EventArgs e)
         {
+            timer1.Stop();
             for (int i = 0; i < 10000; i++)
             {
                 metroProgressSpinner1.Value = i;
@@ -37,7 +38,6 @@ namespace Rubikranet_Doors
                     this.Close();
                 }
             }
-            timer1.Stop();
         }
     }
 }
